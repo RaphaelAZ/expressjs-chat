@@ -2,7 +2,15 @@
 const User = require('../user/user.model.js');
 
 exports.getAll = async (req, res) => {
-    let conversationList = await Conversation.findAll();
+    let conversationList = await Conversation.findAll({
+        include: [
+            {
+                model: User,
+                through: 'user_has_conversation',
+                attributes: ['id', 'username', 'email']
+            }
+        ]
+    });
     res.status(200).json(conversationList);
 }
 
