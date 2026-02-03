@@ -1,20 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const messageController = require('./message.controller');
 
-router.get('/:id', (req, res) => {
-  res.send('message returned! ID: ' + req.params.id);
-});
+router.get('/', messageController.getAll);
 
-router.delete('/:id', (req, res) => {
-  res.send('message deleted! ID: ' + req.params.id);
-});
+router.post('/', messageController.createMessage);
 
-router.post('/', (req, res) => {
-  res.send('message created!');
-});
-
-router.put('/:id', (req, res) => {
-  res.send('message updated! ID: ' + req.params.id);
-});
+router.get('/between-users/:userId1/:userId2', messageController.getAllMessagesBeetwenUsers);
 
 module.exports = router;
