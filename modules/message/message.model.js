@@ -1,21 +1,12 @@
 const { DataTypes } = require('sequelize');
-const { db } = require('../../helper/database');
+const { bdd } = require('./../../helper/connexion.js');
 
-const Message = db.define('Message', {
+const Message = bdd.define('Message', {
     content: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    senderId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    receiverId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-}, {
-    timestamps: true,
+        type: DataTypes.TEXT
+    }
+},{
+    tableName: "message"
 });
 
 module.exports = Message;

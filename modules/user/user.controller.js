@@ -1,60 +1,40 @@
-const User = require('./user.model');
+const User = require('./user.model.js');
 
 exports.getAll = async (req, res) => {
-    try {
-        let users = await User.findAll();
-        res.status(200).json(users);
-    } catch(error) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs'});
-    }
-};
+    let userList = await User.findAll();
+    res.status(200).json(userList);
+}
 
 exports.getById = async (req, res) => {
-    try {
-        let user = await User.findByPk(req.params.id);
-        if(user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ error: 'Utilisateur non trouvé'});
+    let user = await User.findOne({
+        where: {
+            id: req.params.id
         }
-    } catch(error) {
-        res.status(500).json({ error: 'Erreur lors de la récupération de l\'utilisateur'});
-    }
-};
+    });
+    res.status(200).json(user);
+}
 
-exports.createUser = async (req, res) => {
-    try {
-        let user = await User.create(req.body);
-        res.status(201).json(user);
-    } catch(error) {
-        res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur'});
-    }
-};
+exports.create = async (req, res) => {
+    let user = await User.create(req.body);
+    res.status(201).json(user);
+}
 
-exports.updateUser = async (req, res) => {
-    try {
-        let user = await User.findByPk(req.params.id);
-        if(user) {
-            await user.update(req.body);
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ error: 'Utilisateur non trouvé'});
+exports.update = async (req, res) => {
+    let result = await User.update({
+        ...req.body
+    },{
+        where: {
+            id: req.params.id
         }
-    } catch(error) {
-        res.status(500).json({ error: 'Erreur lors de la mise à jour de l\'utilisateur'});
-    }
-};
+    });
+    res.status(201).json({message: "Lignes modifiées : " + result[0]});
+}
 
-exports.deleteUser = async (req, res) => {
-    try {
-        let user = await User.findByPk(req.params.id);
-        if(user) {
-            await user.destroy();
-            res.status(200).json({ message: 'Utilisateur supprimé avec succès'});
-        } else {
-            res.status(404).json({ error: 'Utilisateur non trouvé'});
+exports.delete = async (req, res) => {
+    let result = await User.destroy({
+        where: {
+            id: req.params.id
         }
-    } catch(error) {
-        res.status(500).json({ error: 'Erreur lors de la suppression de l\'utilisateur'});
-    }
-};
+    });
+    res.status(200).json({message: "Lignes supprimées : " + result})
+}

@@ -1,20 +1,19 @@
 const express = require('express');
 const app = express();
-const userRoutes = require('./modules/user/user.routes');
-const messageRoutes = require('./modules/message/message.routes');
-const { connect } = require('./helper/database');
-const sync = require('./helper/sync');
+const userRouter = require('./module/user/user.route.js');
+const messageRouter = require('./module/message/message.route.js');
+const {connect} = require('./helper/connexion.js');
+const associate = require('./helper/associate.js');
 
 const startBdd = async () => {
     await connect();
-    await sync();
+    await associate();
 }
 startBdd();
 
 app.use(express.json());
 
-app.use('/message', messageRoutes);
-app.use('/user', userRoutes);
-
+app.use('/user',userRouter);
+app.use('/message',messageRouter);
 
 module.exports = app;

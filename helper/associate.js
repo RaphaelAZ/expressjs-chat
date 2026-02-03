@@ -1,11 +1,15 @@
-const User = require('../modules/user/user.model');
-const Message = require('../modules/message/message.model');
+const User = require('./../module/user/user.model.js');
+const Message = require('./../module/message/message.model.js');
+const Conversation = require('./../module/conversation/conversation.model.js')
 
 const associate = async () => {
-    User.hasMany(Message, { as: 'sentMessages', foreignKey: 'senderId' });
-    User.hasMany(Message, { as: 'receivedMessages', foreignKey: 'receiverId' });
-    Message.belongsTo(User, { as: 'sender', foreignKey: 'senderId' });
-    Message.belongsTo(User, { as: 'receiver', foreignKey: 'receiverId' });
+    User.hasMany(Message, {foreignKey: "userId"});
+    Message.belongsTo(User, {foreignKey: "userId"});
+
+    Conversation.hasMany(Message,{foreignKey: "conversationId"});
+
+    User.belongsToMany(Conversation,{through: "user_has_conversation"});
+    Conversation.belongsToMany(User,{through: "user_has_conversation"});
 }
 
 module.exports = associate;
