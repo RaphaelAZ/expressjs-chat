@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
-const { bdd } = require('./../../helper/connexion.js');
+const { db } = require('./../../helper/connexion.js');
 
-const Message = bdd.define('Message', {
+const Message = db.define('Message', {
     content: {
         type: DataTypes.TEXT
     }
 },{
-    tableName: "message"
+    tableName: "messages"
 });
 
 module.exports = Message;

@@ -1,13 +1,7 @@
 const { DataTypes } = require('sequelize');
-const { bdd } = require('./../../helper/connexion.js');
+const { db } = require('./../../helper/connexion.js');
 
-const User = bdd.define('User', {
-    firstname: {
-        type: DataTypes.STRING(255)
-    },
-    lastname: {
-        type: DataTypes.STRING(255)
-    },
+const User = db.define('User', {
     username: {
         type: DataTypes.STRING(255),
         unique: true,
@@ -23,7 +17,7 @@ const User = bdd.define('User', {
         allowNull: false
     }
 },{
-    tableName: "user"
+    tableName: "users"
 });
 
 module.exports = User;

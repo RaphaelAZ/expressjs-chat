@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const messageController = require('./message.controller.js');
 
-router.get('/',messageController.getAll);
-
 router.get('/:id',messageController.getById);
 
 router.post('/',messageController.create);

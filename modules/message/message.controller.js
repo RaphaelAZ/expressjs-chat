@@ -1,10 +1,5 @@
 const Message = require('./message.model.js');
 
-exports.getAll = async (req, res) => {
-    let messageList = await Message.findAll();
-    res.status(200).json(messageList);
-}
-
 exports.getById = async (req, res) => {
     let message = await Message.findOne({
         where: {
@@ -37,4 +32,13 @@ exports.delete = async (req, res) => {
         }
     });
     res.status(200).json({message: "Lignes supprimées : " + result})
+}
+
+exports.getAllFromConversation = async (req, res) => {
+    let messageList = await Message.findAll({
+        where: {
+            conversationId: req.params.conversationId
+        }
+    });
+    res.status(200).json(messageList);
 }

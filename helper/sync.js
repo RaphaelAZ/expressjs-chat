@@ -1,9 +1,9 @@
-const {bdd} = require('./connexion.js');
+const {db} = require('./connexion.js');
 const associate = require('./associate.js');
 
 const sync = async () => {
     await associate();
-    await bdd.sync({alter: true});
+    await db.sync({alter: true});
 }
 
 sync();

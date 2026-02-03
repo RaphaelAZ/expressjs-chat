@@ -1,7 +1,7 @@
 ﻿const { DataTypes } = require('sequelize');
-const { bdd } = require('./../../helper/connexion.js');
+const { db } = require('./../../helper/connexion.js');
 
-const Conversation = bdd.define('Conversation', {
+const Conversation = db.define('Conversation', {
 
 },{
     tableName: "conversation"
